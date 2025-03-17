@@ -144,7 +144,7 @@
       familias.forEach(familia => {
         let valorDevido = (familia.pessoas / totalPessoas) * totalViagem;
         let saldoRestante = valorDevido - familia.pago;
-        resultadoDiv.innerHTML += `<p>${familia.nome}: <br> Deve pagar R$${valorDevido.toFixed(2)}. <br> Já pagou R$${familia.pago.toFixed(2)}.<br> Falta pagar R$${saldoRestante.toFixed(2)}</p>`;
+        resultadoDiv.innerHTML += `<p>${familia.nome}: <br> <br> Deve pagar R$${valorDevido.toFixed(2)}. <br> Já pagou R$${familia.pago.toFixed(2)}.<br> Falta pagar R$${saldoRestante.toFixed(2)}</p>`;
       });
     }
   </script>
