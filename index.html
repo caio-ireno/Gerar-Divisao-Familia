@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizador de Viagem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("img1.jpg");
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2,
+    h3 {
+      color: #2c3e50;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .familia {
+      background-color: #ffffff;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+    }
+
+    #resultado p {
+      background-color: #dff9fb;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 5px auto;
+      width: 80%;
+      max-width: 500px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Organizador de Viagem em Familia</h2>
+    <label>Total da viagem: R$</label>
+    <input type="number" id="totalViagem" placeholder="Valor total">
+    <br><br>
+    <label>Número de famílias: </label>
+    <input type="number" id="numFamilias" placeholder="Quantidade">
+    <button onclick="criarCampos()">Gerar famílias</button>
+  </div>
+
+
+  <div id="familias"></div>
+  <button onclick="calcularValores()">Calcular</button>
+
+  <h3>Resultado:</h3>
+  <div id="resultado"></div>
+
+  <footer style="margin-top: 100px;">
+    por Caio Ireno
+  </footer>
+  <script>
+    function criarCampos() {
+      let numFamilias = document.getElementById('numFamilias').value;
+      let familiasDiv = document.getElementById('familias');
+      familiasDiv.innerHTML = '';
+
+      for (let i = 1; i <= numFamilias; i++) {
+        familiasDiv.innerHTML += `
+                    <div class="familia">
+                        <h4>Família ${i}</h4>
+                        <div>
+                          <label>Nome: </label>
+                          <input type="text" id="nome${i}" placeholder="Nome da família">
+                        </div>
+                        <div>
+                          <label>Pessoas: </label>
+                          <input type="number" id="pessoas${i}" placeholder="Quantidade">
+                        </div>
+                        <div>
+                        <label>Pessoas: </label>
+                        <input type="number" id="pessoas${i}" placeholder="Quantidade">
+                        </div>
+                        <label>Já pago: R$</label>
+                        <input type="number" id="pago${i}" placeholder="Valor">
+                    </div>
+                `;
+      }
+    }
+
+    function calcularValores() {
+      let totalViagem = parseFloat(document.getElementById('totalViagem').value);
+      let numFamilias = document.getElementById('numFamilias').value;
+      let totalPessoas = 0;
+      let familias = [];
+
+      for (let i = 1; i <= numFamilias; i++) {
+        let nome = document.getElementById(`nome${i}`).value || `Família ${i}`;
+        let pessoas = parseInt(document.getElementById(`pessoas${i}`).value);
+        let pago = parseFloat(document.getElementById(`pago${i}`).value) || 0;
+        familias.push({ nome, pessoas, pago });
+        totalPessoas += pessoas;
+      }
+
+      let resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = '';
+
+      familias.forEach(familia => {
+        let valorDevido = (familia.pessoas / totalPessoas) * totalViagem;
+        let saldoRestante = valorDevido - familia.pago;
+        resultadoDiv.innerHTML += `<p>${familia.nome}: <br> Deve pagar R$${valorDevido.toFixed(2)}. <br> Já pagou R$${familia.pago.toFixed(2)}.<br> Falta pagar R$${saldoRestante.toFixed(2)}</p>`;
+      });
+    }
+  </script>
+</body>
+
+</html>
