@@ -84,18 +84,19 @@
     <label>Número de famílias: </label>
     <input type="number" id="numFamilias" placeholder="Quantidade">
     <button onclick="criarCampos()">Gerar famílias</button>
+
+
+    <div id="familias"></div>
+    <button onclick="calcularValores()">Calcular</button>
+
+    <h3>Resultado:</h3>
+    <div id="resultado"></div>
+
+    <footer style="margin-top: 100px;">
+      por Caio Ireno
+    </footer>
   </div>
 
-
-  <div id="familias"></div>
-  <button onclick="calcularValores()">Calcular</button>
-
-  <h3>Resultado:</h3>
-  <div id="resultado"></div>
-
-  <footer style="margin-top: 100px;">
-    por Caio Ireno
-  </footer>
   <script>
     function criarCampos() {
       let numFamilias = document.getElementById('numFamilias').value;
